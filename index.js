@@ -1,10 +1,16 @@
 'use strict';
 
+const selector = require('./lib/selector');
+
+const _defaults = {
+    selector: 'select'
+};
+
 module.exports = function(hermione, opts) {
-    hermione.on(hermione.events.SESSION_START, function() {
-        console.log('=>', hermione);
-        console.log('=>', opts);
-        console.log('=>', arguments);
-        console.log('=>', this);
+
+    const options = Object.assign({}, _defaults, opts);
+
+    hermione.on(hermione.events.RUNNER_START, function() {
+        global[options.selector] = selector;
     });
 };
